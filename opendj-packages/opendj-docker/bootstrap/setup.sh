@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Default setup script
 
+echo "########### setup.sh 2 ##############"
 echo "Setting up default OpenDJ instance"
 
 # If any optional LDIF files are present load them

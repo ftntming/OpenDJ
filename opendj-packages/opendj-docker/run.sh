@@ -7,17 +7,19 @@
 # For Docker - mount a data volume on /opt/opendj/data
 # For Kubernetes mount a PV
 
+echo "########### run.sh 2 ##############"
 
 cd /opt/opendj
 
 #if defaul data folder exists do not change it
 if [ ! -d ./db ] ; then
-  echo "/opt/opendj/data" > /opt/opendj/instance.loc  && \
-    mkdir -p /opt/opendj/data/lib/extensions
+  echo "/home/opendj/data" > /home/opendj/instance.loc  && \
+    mkdir -p /opt/opendj/data/lib/extensions && \
+    mkdir -p /home/opendj/data/lib/extensions
 fi
 
 # Instance dir does not exist? Then we need to run setup
-if [ ! -d ./data/config ] ; then
+if [ ! -d /home/opendj/data/config ] ; then
 
   echo "Instance data Directory is empty. Creating new DJ instance"
 
@@ -50,7 +52,7 @@ SECRET_VOLUME=${SECRET_VOLUME:-/var/secrets/opendj}
 if [ -d "${SECRET_VOLUME}" ]; then
   echo "Secret volume is present. Will copy any keystores and truststore"
   # We send errors to /dev/null in case no data exists.
-  cp -f ${SECRET_VOLUME}/key*   ${SECRET_VOLUME}/trust* ./data/config 2>/dev/null
+  cp -f ${SECRET_VOLUME}/key*   ${SECRET_VOLUME}/trust* /home/opendj/data/config 2>/dev/null
 fi
 
 # todo: Check /opt/opendj/data/config/buildinfo
